@@ -1,0 +1,57 @@
+pipeline{
+    agent any 
+    
+    tools{
+		maven 'maven3.6.2'
+		}
+    
+    triggers{
+        pollSCM('* * * * *')
+    }		
+	
+  options{
+	// timestamp will generate the time to the console output	
+  timestamps() 
+  //discard old builds and old artifacts
+  buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3'))
+	}
+		
+    // script from getting the code from github to deploying the code into tomcat server
+    
+    stages{
+    // get the code from github
+        stage('GetcodefromGit'){
+            steps{
+                git branch: 'development', credentialsId: '84d5c932-f14d-45d9-93f0-fca158074424', url: 'https://github.com/manitheja420/maven-web-application.git'
+            }
+        }
+        stage('Build'){
+			steps{
+			 sh "mvn clean package"
+			}
+		}
+		stage('ReportGeneration'){
+			steps{
+			 sh "mvn sonar:sonar"
+			}
+		}
+		
+		stage('Artifact'){
+			steps{
+			 sh "mvn deploy"
+			}
+		}
+		stage('jacocoreport'){
+		    steps{
+		        jacoco buildOverBuild: true, deltaBranchCoverage: '80', deltaClassCoverage: '80', deltaComplexityCoverage: '80', deltaInstructionCoverage: '80', deltaLineCoverage: '80', deltaMethodCoverage: '80', maximumBranchCoverage: '80', maximumClassCoverage: '80', maximumComplexityCoverage: '80', maximumInstructionCoverage: '80', maximumLineCoverage: '80', maximumMethodCoverage: '80', minimumBranchCoverage: '80', minimumClassCoverage: '80', minimumComplexityCoverage: '80', minimumInstructionCoverage: '80', minimumLineCoverage: '80', minimumMethodCoverage: '80', runAlways: true
+		    }
+		}
+		stage('DeployintoTomcatServer'){
+			steps{
+			sshagent(['8543fc40-e9c8-4853-bceb-fcb39d073df8']) {
+            sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@65.1.131.217:/opt/apache-tomcat-9.0.44/webapps/"
+        }
+			}
+		}
+    }
+}
