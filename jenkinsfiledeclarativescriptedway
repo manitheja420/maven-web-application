@@ -2,8 +2,8 @@ pipeline{
     agent any 
     
     tools{
-		maven 'maven3.6.2'
-		}
+	  maven 'maven3.6.2'
+	}
     
     triggers{
         pollSCM('* * * * *')
@@ -17,7 +17,6 @@ pipeline{
 	}
 		
     // script from getting the code from github to deploying the code into tomcat server
-    
     stages{
     // get the code from github
         stage('GetcodefromGit'){
