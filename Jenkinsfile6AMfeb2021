@@ -3,10 +3,10 @@ node
  def mavenHome = tool name: "maven3.6.3"
  
  //echo "GitHub BranhName ${env.BRANCH_NAME}"
-  //echo "Jenkins Job Number is: -->  ${env.BUILD_NUMBER}"
-  echo "Jenkins Node Name is: --> ${env.NODE_NAME}"
+  //echo "Jenkins Job Number is updated by ymt: -->  ${env.BUILD_NUMBER}"
+  echo "Jenkins Node Name isupdated by ymt: --> ${env.NODE_NAME}"
   
-  echo "Jenkins Home is: --> ${env.JENKINS_HOME}"
+  echo "Jenkins Home is updated by ymt: --> ${env.JENKINS_HOME}"
   echo "Jenkins URL is: -->  ${env.JENKINS_URL}"
   echo "JOB Name is: -->  ${env.JOB_NAME}"
   
