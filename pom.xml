@@ -24,10 +24,10 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		
+		<sonar.host.url>http://52.66.241.155:9000/</sonar.host.url> 				
    		<sonar.login>de12a35f7351f2444444e3848c80b30ff1f631fd</sonar.login>	
 		<!--
-<sonar.host.url>http://52.66.241.155:9000/</sonar.host.url> 		
+
 <sonar.password>admin</sonar.password> 	
  		
 		-->
